@@ -21,6 +21,13 @@ type Display struct {
 	XID        string `json:"X11displayID"`
 	Width      int    `json:"width"`
 	Height     int    `json:"height"`
+	Gamma      Gamma
+}
+
+type Gamma struct {
+	Red   []uint16
+	Green []uint16
+	Blue  []uint16
 }
 
 func init() {
@@ -57,12 +64,17 @@ func MainDisplay() Display {
 	//XID := glfw.GetX11Display()
 
 	video := monitor.GetVideoMode()
+	gamma := monitor.GetGammaRamp()
 
 	dc.GPU = GPU
 	dc.OGLversion = version
 	dc.ID = ID
 	dc.Width = video.Width
 	dc.Height = video.Height
+
+	dc.Gamma.Red = gamma.Red
+	dc.Gamma.Green = gamma.Green
+	dc.Gamma.Blue = gamma.Blue
 
 	return dc
 }
