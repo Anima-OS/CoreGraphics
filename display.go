@@ -19,6 +19,8 @@ type Display struct {
 	OGLversion string `json:"openGL_version"`
 	ID         string `json:"displayID"`
 	XID        string `json:"X11displayID"`
+	Width      int    `json:"width"`
+	Height     int    `json:"height"`
 }
 
 func init() {
@@ -54,9 +56,13 @@ func MainDisplay() Display {
 	ID := monitor.GetName()
 	//XID := glfw.GetX11Display()
 
+	video := monitor.GetVideoMode()
+
 	dc.GPU = GPU
 	dc.OGLversion = version
 	dc.ID = ID
+	dc.Width = video.Width
+	dc.Height = video.Height
 
 	return dc
 }
